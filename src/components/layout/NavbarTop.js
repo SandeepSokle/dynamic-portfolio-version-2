@@ -7,9 +7,9 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
 import { useSelector } from "react-redux";
-
+import {  useNavigate } from "react-router-dom";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 const drawerWidth = 240;
-
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -36,8 +36,10 @@ const NavbarTop = (props) => {
     anchorEl,
     handlePopoverOpen,
     handlePopoverClose,
+    setSelectedTab,
   } = props;
   const open1 = Boolean(anchorEl);
+  const history = useNavigate();
 
   const userData = useSelector((state) => {
     return state.data.user;
@@ -76,22 +78,41 @@ const NavbarTop = (props) => {
             variant="h6"
             color="inherit"
             noWrap
-            sx={{ flexGrow: 1 }}
+            sx={{
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              // justifyContent: "space-evenly",
+            }}
           >
             <div
               style={{
                 cursor: "pointer",
                 width: "max-content",
-                marginLeft: "36px",
+                marginLeft: "16px",
+                padding: "0rem 1rem",
+                fontSize: "1rem",
+                textDecoration: "underline",
+              }}
+              onClick={() => {
+                setSelectedTab("/");
+              }}
+            >
+              <IconButton edge="start" color="inherit" aria-label="open drawer">
+                <ArrowLeftIcon sx={{ fontSize: 40, marginRight: "-10px" }} />
+              </IconButton>
+              Back to Home
+            </div>
+            <div
+              style={{
+                cursor: "pointer",
+                width: "max-content",
+                marginLeft: "16px",
                 padding: "0rem 1rem",
               }}
             >
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                sx={{}}
-              >
+              <IconButton edge="start" color="inherit" aria-label="open drawer">
                 <SearchIcon sx={{ fontSize: 30 }} />
               </IconButton>
               Search User

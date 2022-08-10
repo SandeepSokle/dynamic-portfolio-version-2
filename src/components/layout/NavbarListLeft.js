@@ -1,40 +1,40 @@
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InfoIcon from "@mui/icons-material/Info";
-import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
-import WorkIcon from "@mui/icons-material/Work";
 import BookIcon from "@mui/icons-material/Book";
-import MessageIcon from "@mui/icons-material/Message";
-import ImportContactsIcon from "@mui/icons-material/ImportContacts";
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import LoginIcon from '@mui/icons-material/Login';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import ArticleIcon from '@mui/icons-material/Article';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
 
 const NavbarListLeft = (props) => {
   const { setSelectedTab } = props;
 
   const itemList = [
     {
-      icon: <InfoIcon />,
-      label: "About",
+      icon: <DashboardIcon />,
+      label: "Dashboard",
     },
     {
-      icon: <DocumentScannerIcon />,
-      label: "Resume",
+      icon: <LoginIcon />,
+      label: "Login",
     },
     {
-      icon: <ImportContactsIcon />,
-      label: "Projects",
-    },
-    {
-      icon: <WorkIcon />,
-      label: "Experience",
+      icon: <HowToRegIcon />,
+      label: "Register",
     },
     {
       icon: <BookIcon />,
-      label: "Blog",
+      label: "Blogs",
     },
     {
-      icon: <MessageIcon />,
-      label: "Communication",
+      icon: <ArticleIcon />,
+      label: "Documentation",
+    },
+    {
+      icon: <ContactMailIcon />,
+      label: "Contact Us",
     },
   ];
 

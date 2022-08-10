@@ -1,17 +1,18 @@
-import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import NavbarTop from "./NavbarTop";
 import NavBarDrawer from "./Drawer";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const mdTheme = createTheme();
 
 export const Layout = () => {
-  const [open, setOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [selectedTab, setSelectedTab] = React.useState("About");
-
+  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedTab, setSelectedTab] = useState("/");
+  const history = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -24,6 +25,15 @@ export const Layout = () => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    let newRoute;
+    if (selectedTab === "Documentation") newRoute = "docs";
+    else {
+      newRoute = selectedTab.toLowerCase().replace(/\s/g, "");
+    }
+    history(`../${newRoute}`, { replace: true });
+  }, [selectedTab]);
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -34,6 +44,7 @@ export const Layout = () => {
           anchorEl={anchorEl}
           handlePopoverOpen={handlePopoverOpen}
           handlePopoverClose={handlePopoverClose}
+          setSelectedTab={setSelectedTab}
         />
         <NavBarDrawer
           open={open}
