@@ -39,7 +39,7 @@ const NavbarTop = (props) => {
     setSelectedTab,
   } = props;
   const open1 = Boolean(anchorEl);
-  const history = useNavigate();
+  // const history = useNavigate();
 
   const userData = useSelector((state) => {
     return state.data.user;
