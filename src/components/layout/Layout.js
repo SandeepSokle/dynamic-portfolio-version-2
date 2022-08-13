@@ -5,6 +5,7 @@ import NavbarTop from "./NavbarTop";
 import NavBarDrawer from "./Drawer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import Header from "../header";
 
 const mdTheme = createTheme();
 
@@ -66,7 +67,8 @@ export const Layout = () => {
           }}
         >
           <Box sx={{ mt: 11, mb: 4, p: 0 }}>
-            <h1>{selectedTab}</h1>
+            {/* <h1>{selectedTab}</h1> */}
+            <Header />
           </Box>
         </Box>
       </Box>

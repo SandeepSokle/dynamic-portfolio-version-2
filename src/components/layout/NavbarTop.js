@@ -9,6 +9,8 @@ import Avatar from "@mui/material/Avatar";
 import { useSelector } from "react-redux";
 // import {  useNavigate } from "react-router-dom";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import Badge from "@mui/material/Badge";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -127,9 +129,22 @@ const NavbarTop = (props) => {
               alignItems: "center",
             }}
           >
+            <div>
+              <Badge
+                badgeContent={4}
+                color = "error"
+                sx={{
+                  mr: 4,
+                  cursor: "pointer",
+                }}
+              >
+                <NotificationsActiveIcon sx={{ fontSize: 25 }} />
+              </Badge>
+            </div>
             <div
               style={{
                 fontSize: "1.3rem",
+                cursor: "default",
               }}
             >
               Sandeep Kumar
@@ -142,6 +157,7 @@ const NavbarTop = (props) => {
               //   onClick={handleClick}
               sx={{
                 m: "0rem 0.8rem",
+                cursor: "pointer",
               }}
             >
               {/* Hover with a Popover. */}
