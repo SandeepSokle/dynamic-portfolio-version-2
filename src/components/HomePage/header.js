@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import "./header.css";
 import SimpleBackdrop from "./BackDrop";
@@ -28,7 +27,6 @@ const images = [
 ];
 
 function Header() {
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
   const handleToggleOpen = () => {
