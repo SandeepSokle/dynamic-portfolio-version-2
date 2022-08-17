@@ -69,7 +69,7 @@ function Header() {
               // border: "2px solid #000",
               boxShadow: 24,
               p: 4,
-              fontSize: "4rem",
+              fontSize: "2rem",
               fontWeight: "bold",
               borderRadius: "24px",
               cursor: "pointer",
