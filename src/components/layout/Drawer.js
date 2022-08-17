@@ -37,7 +37,7 @@ const Drawer = styled(MuiDrawer, {
 const NavBarDrawer = (props) => {
   const { open, toggleDrawer, setSelectedTab } = props;
   return (
-    <Drawer variant="permanent" open={open}>
+    <Drawer variant="permanent"  open={open} sx = {{position:"absolute",height : "100vh"}}>
       <Toolbar
         sx={{
           display: "flex",
