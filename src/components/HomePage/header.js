@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import "./header.css";
 import SimpleBackdrop from "./BackDrop";
+import { useNavigate } from "react-router";
 
 const images = [
   {
@@ -28,6 +29,7 @@ const images = [
 
 function Header() {
   const [open, setOpen] = React.useState(false);
+  const history = useNavigate();
 
   const handleToggleOpen = () => {
     setOpen(true);
@@ -82,6 +84,9 @@ function Header() {
             onMouseLeave={(e) => {
               e.preventDefault();
               handleToggleClose();
+            }}
+            onClick = {()=>{
+              history(`../login`, { replace: false });
             }}
           >
          

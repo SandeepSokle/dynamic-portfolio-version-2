@@ -1,17 +1,17 @@
 import axios from "axios";
-import { saveUserDetails } from "../HandleFunctions/handleFunctions";
+// import { saveUserDetails } from "../HandleFunctions/handleFunctions";
 import { actions } from "./getDataAction";
 const { getDataAction, loginUserAction, logoutUserAction, addSecretKeyAction } =
   actions;
-import {
-  // loaderStartActionCreater,
-  loaderEndActionCreater,
-} from "./Loader/LoaderActionCreator";
+// import {
+//   // loaderStartActionCreater,
+//   loaderEndActionCreater,
+// } from "./Loader/LoaderActionCreator";
 
 const getData = async (dispatch) => {
   try {
     const add = process.env.PORTFOLIO_LOCAL_API;
-    // console.log(add);
+    console.log("add");
     // "https://dynamic-portfolio-api.herokuapp.com/portfolio/get"
     const response = await axios.get(
       `https://dynamic-portfolio-api.herokuapp.com/portfolio/get`
@@ -33,8 +33,8 @@ const getData = async (dispatch) => {
       };
     }, {});
 
-    // console.log("Data After reduce : ", data);
-    dispatch(loaderEndActionCreater());
+    console.log("Data After reduce : ", data);
+    // dispatch(loaderEndActionCreater());
     return data;
   } catch (err) {
     console.log(err);
@@ -42,10 +42,12 @@ const getData = async (dispatch) => {
 };
 
 export const getDataActionCreater = () => {
+  // console.log("In getDataActionCreater : ");
+
   return async (dispatch) => {
     try {
       let data = await getData(dispatch);
-      // console.log("In getDataActionCreater : ", data);
+      console.log("In getDataActionCreater : ", data);
       dispatch(getDataAction(data));
     } catch (err) {
       console.log(err.message);
@@ -53,36 +55,36 @@ export const getDataActionCreater = () => {
   };
 };
 
-export const loginUserActionCreater = (data) => {
-  return async (dispatch) => {
-    try {
-      // console.log("In loginUserActionCreater : ", data);
-      saveUserDetails({ data, dispatch });
-      dispatch(loginUserAction(data));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-};
+// export const loginUserActionCreater = (data) => {
+//   return async (dispatch) => {
+//     try {
+//       // console.log("In loginUserActionCreater : ", data);
+//       saveUserDetails({ data, dispatch });
+//       dispatch(loginUserAction(data));
+//     } catch (err) {
+//       console.log(err.message);
+//     }
+//   };
+// };
 
-export const logoutUserActionCreater = () => {
-  return async (dispatch) => {
-    try {
-      // console.log("In loginUserActionCreater : ", data);
-      dispatch(logoutUserAction());
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-};
+// export const logoutUserActionCreater = () => {
+//   return async (dispatch) => {
+//     try {
+//       // console.log("In loginUserActionCreater : ", data);
+//       dispatch(logoutUserAction());
+//     } catch (err) {
+//       console.log(err.message);
+//     }
+//   };
+// };
 
-export const addSecretKeyActionCreater = (data) => {
-  return async (dispatch) => {
-    try {
-      // console.log("In loginUserActionCreater : ", data);
-      dispatch(addSecretKeyAction(data));
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-};
+// export const addSecretKeyActionCreater = (data) => {
+//   return async (dispatch) => {
+//     try {
+//       // console.log("In loginUserActionCreater : ", data);
+//       dispatch(addSecretKeyAction(data));
+//     } catch (err) {
+//       console.log(err.message);
+//     }
+//   };
+// };
