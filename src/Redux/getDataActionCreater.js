@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { saveUserDetails } from "../HandleFunctions/handleFunctions";
 import { actions } from "./getDataAction";
-const { getDataAction, loginUserAction, logoutUserAction, addSecretKeyAction } =
+const { getDataAction } =
   actions;
 // import {
 //   // loaderStartActionCreater,
@@ -10,7 +10,7 @@ const { getDataAction, loginUserAction, logoutUserAction, addSecretKeyAction } =
 
 const getData = async (dispatch) => {
   try {
-    const add = process.env.PORTFOLIO_LOCAL_API;
+    // const add = process.env.PORTFOLIO_LOCAL_API;
     console.log("add");
     // "https://dynamic-portfolio-api.herokuapp.com/portfolio/get"
     const response = await axios.get(
@@ -47,7 +47,7 @@ export const getDataActionCreater = () => {
   return async (dispatch) => {
     try {
       let data = await getData(dispatch);
-      console.log("In getDataActionCreater : ", data);
+      // console.log("In getDataActionCreater : ", data);
       dispatch(getDataAction(data));
     } catch (err) {
       console.log(err.message);
