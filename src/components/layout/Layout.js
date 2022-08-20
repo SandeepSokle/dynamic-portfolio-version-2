@@ -32,7 +32,7 @@ export const Layout = () => {
     else {
       newRoute = selectedTab.toLowerCase().replace(/\s/g, "");
     }
-    history(`../${newRoute}`, { replace: true });
+    history(`../${newRoute}`, { replace: false });
   }, [selectedTab, history]);
 
   return (
