@@ -42,7 +42,7 @@ function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
   
-        <div key={images[0].label}>
+        <div key={images[0].label} style={{position:"relative"}}>
           <Box
             component="img"
             sx={{

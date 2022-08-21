@@ -1,0 +1,20 @@
+.single-box-container{
+    width: max-content;
+    padding: 2%;
+}
+.img-container img{
+    height: 220px;
+}
+.img-container{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
+}
+.img-title-boxes{
+    text-align: -webkit-center;
+    margin: 12%;
+    font-size: 54px;
+
+    font-weight: 300;
+    line-height: 24px;
+    
+}
