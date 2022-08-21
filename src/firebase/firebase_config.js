@@ -16,12 +16,13 @@ import { openSnackbar } from "../Redux/Snackbar/snackbarStore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAHRk7a2frlaZqQ5bOlSIgxQ1yqiwMi5ow",
-  authDomain: "portfolio-d0b3d.firebaseapp.com",
-  projectId: "portfolio-d0b3d",
-  storageBucket: "portfolio-d0b3d.appspot.com",
-  messagingSenderId: "372520123661",
-  appId: "1:372520123661:web:254c47d3e5ed7c63fc8444",
+  apiKey: "AIzaSyDjA-Z8gsgRGLWtciW_i3w5QKeXfeiyqY8",
+  authDomain: "portfolio-v2-4e3e1.firebaseapp.com",
+  projectId: "portfolio-v2-4e3e1",
+  storageBucket: "portfolio-v2-4e3e1.appspot.com",
+  messagingSenderId: "719615702788",
+  appId: "1:719615702788:web:c6241ac2ce57afdbccc251",
+  measurementId: "G-SFQV8S39CG"
 };
 
 // Initialize Firebase
