@@ -38,7 +38,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import { Button, Modal, Popover, TextField } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { loaderEndActionCreater } from "../../Redux/Loader/LoaderActionCreator";
 const drawerWidth = 240;
 
 const style = {
@@ -141,10 +142,18 @@ export const AdminPanel = () => {
 
   const dispatch = useDispatch();
   const history = useNavigate();
+
+  const userData = useSelector((state) => {
+    // console.log(state.data.user);
+    return state.data.user;
+  });
+
   React.useEffect(() => {
-    // console.log("In effect!!");
-    dispatch(getDataActionCreater());
-  }, [dispatch]);
+    if (!userData) {
+      history("/login", { replace: false });
+    }
+    dispatch(loaderEndActionCreater());
+  }, [userData]);
 
   const renderSwitch = (val) => {
     switch (val) {
@@ -167,10 +176,7 @@ export const AdminPanel = () => {
     }
   };
 
-  const userData = useSelector((state) => {
-    // console.log(state.data.user);
-    return state.data.user;
-  });
+
 
   const secretKeyFromStore = useSelector((state) => {
     // console.log(state.data.user);
@@ -282,7 +288,7 @@ export const AdminPanel = () => {
                   variant="contained"
                   color="info"
                   onClick={() => {
-                    history.push("/");
+                    history("/", { replace: false });
                   }}
                 >
                   <HomeIcon />

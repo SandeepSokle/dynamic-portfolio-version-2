@@ -47,9 +47,9 @@ export const createUserWithEmailPassword = async (
     );
     user = userCredential.user;
     if (!user) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // console.log(userCredential);
+      // const errorCode = error.code;
+      const errorMessage = "user not found";
+      console.log(errorMessage);
     } else {
       await updateProfile(user, {
         displayName: name,
@@ -61,7 +61,6 @@ export const createUserWithEmailPassword = async (
     console.log(err.message);
     dispatch(openSnackbar(err.message, "error"));
   }
-  F;
 };
 
 export const loginWithEmailPassword = async (email, password, dispatch) => {
@@ -75,8 +74,8 @@ export const loginWithEmailPassword = async (email, password, dispatch) => {
     user = userCredential.user;
 
     if (!user) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorCode = error.code;
+      const errorMessage = "user not found";
       console.log(errorMessage);
     } else {
       return user;
@@ -118,8 +117,8 @@ export const loginWithGoogle = async () => {
     // The signed-in user info.
     user = userCredential.user;
     if (!user) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      // const errorCode = error.code;
+      const errorMessage = "user not found";
       console.log(errorMessage);
     } else {
       return user;

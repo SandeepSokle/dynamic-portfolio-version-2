@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 // import {  useNavigate } from "react-router-dom";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Badge from "@mui/material/Badge";
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -46,6 +46,7 @@ const NavbarTop = (props) => {
   const userData = useSelector((state) => {
     return state.data.user;
   });
+  console.log(userData);
 
   return (
     <AppBar position="absolute" open={open}>
@@ -88,7 +89,7 @@ const NavbarTop = (props) => {
               // justifyContent: "space-evenly",
             }}
           >
-            <div
+            {/* <div
               style={{
                 cursor: "pointer",
                 width: "max-content",
@@ -105,7 +106,7 @@ const NavbarTop = (props) => {
                 <ArrowLeftIcon sx={{ fontSize: 40, marginRight: "-10px" }} />
               </IconButton>
               Back to Home
-            </div>
+            </div> */}
             <div
               style={{
                 cursor: "pointer",
@@ -132,7 +133,7 @@ const NavbarTop = (props) => {
             <div>
               <Badge
                 badgeContent={4}
-                color = "error"
+                color="error"
                 sx={{
                   mr: 4,
                   cursor: "pointer",
@@ -147,7 +148,7 @@ const NavbarTop = (props) => {
                 cursor: "default",
               }}
             >
-              Sandeep Kumar
+              {userData?.displayName || ""}
             </div>
             <Typography
               aria-owns={open1 ? "mouse-over-popover" : undefined}

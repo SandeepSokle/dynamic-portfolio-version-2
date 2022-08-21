@@ -1,7 +1,7 @@
 import axios from "axios";
-// import { saveUserDetails } from "../HandleFunctions/handleFunctions";
+import { saveUserDetails } from "../components/HandleFunctions/handleFunctions";
 import { actions } from "./getDataAction";
-const { getDataAction } =
+const { getDataAction, loginUserAction, logoutUserAction, addSecretKeyAction } =
   actions;
 // import {
 //   // loaderStartActionCreater,
@@ -55,28 +55,28 @@ export const getDataActionCreater = () => {
   };
 };
 
-// export const loginUserActionCreater = (data) => {
-//   return async (dispatch) => {
-//     try {
-//       // console.log("In loginUserActionCreater : ", data);
-//       saveUserDetails({ data, dispatch });
-//       dispatch(loginUserAction(data));
-//     } catch (err) {
-//       console.log(err.message);
-//     }
-//   };
-// };
+export const loginUserActionCreater = (data) => {
+  return async (dispatch) => {
+    try {
+      // console.log("In loginUserActionCreater : ", data);
+      saveUserDetails({ data, dispatch });
+      dispatch(loginUserAction(data));
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+};
 
-// export const logoutUserActionCreater = () => {
-//   return async (dispatch) => {
-//     try {
-//       // console.log("In loginUserActionCreater : ", data);
-//       dispatch(logoutUserAction());
-//     } catch (err) {
-//       console.log(err.message);
-//     }
-//   };
-// };
+export const logoutUserActionCreater = () => {
+  return async (dispatch) => {
+    try {
+      // console.log("In loginUserActionCreater : ", data);
+      dispatch(logoutUserAction());
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+};
 
 // export const addSecretKeyActionCreater = (data) => {
 //   return async (dispatch) => {
