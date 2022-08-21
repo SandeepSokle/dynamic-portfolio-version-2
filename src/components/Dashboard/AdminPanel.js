@@ -19,16 +19,16 @@ import ListItemText from "@mui/material/ListItemText";
 import InfoIcon from "@mui/icons-material/Info";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import WorkIcon from "@mui/icons-material/Work";
-import BookIcon from "@mui/icons-material/Book";
-import MessageIcon from "@mui/icons-material/Message";
+// import BookIcon from "@mui/icons-material/Book";
+// import MessageIcon from "@mui/icons-material/Message";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import { AdminAbout } from "../AdminPanelComponent/AdminAbout";
 import { AdminResume } from "../AdminPanelComponent/AdminResume";
 import { AdminProjects } from "../AdminPanelComponent/AdminProjects";
 import { AdminExperience } from "../AdminPanelComponent/AdminExperience";
-import { AdminBlog } from "../AdminPanelComponent/AdminBlog";
+// import { AdminBlog } from "../AdminPanelComponent/AdminBlog";
 import { AdminContacts } from "../AdminPanelComponent/AdminContacts";
-import { AdminMessage } from "../AdminPanelComponent/AdminMessage";
+// import { AdminMessage } from "../AdminPanelComponent/AdminMessage";
 import {
   // addSecretKeyActionCreater,
   getDataActionCreater,
@@ -129,11 +129,11 @@ const mdTheme = createTheme();
 export const AdminPanel = () => {
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorElBtn, setAnchorElBtn] = React.useState(null);
+  // const [anchorElBtn, setAnchorElBtn] = React.useState(null);
   const [selectedTab, setSelectedTab] = React.useState("About");
   const [secretKey, setSecretKey] = React.useState("");
   const [openSecretModel, setOpenSecretModel] = React.useState(false);
-  const handleOpenSecretModel = () => setOpenSecretModel(true);
+  // const handleOpenSecretModel = () => setOpenSecretModel(true);
   const handleCloseSecretModel = () => setOpenSecretModel(false);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -156,10 +156,10 @@ export const AdminPanel = () => {
         return <AdminProjects selectedTab={val} />;
       case "Experience":
         return <AdminExperience selectedTab={val} />;
-      case "Blog":
-        return <AdminBlog selectedTab={val} />;
-      case "Communication":
-        return <AdminMessage selectedTab={val} />;
+      // case "Blog":
+      //   return <AdminBlog selectedTab={val} />;
+      // case "Communication":
+      //   return <AdminMessage selectedTab={val} />;
       case "Contacts":
         return <AdminContacts selectedTab={val} />;
       default:
@@ -367,7 +367,7 @@ export const AdminPanel = () => {
                         // fontWeight: "bold",
                       }}
                     >
-                      <Button
+                      {/* <Button
                         // sx={{
                         //   m: "8px 0px",
                         //   mb: "0px",
@@ -381,7 +381,7 @@ export const AdminPanel = () => {
                         }}
                       >
                         Add secret Key
-                      </Button>
+                      </Button> */}
                     </div>
                     <Button
                       sx={{
@@ -548,7 +548,7 @@ export const AdminPanel = () => {
                 </ListItemIcon>
                 <ListItemText primary="Experience" />
               </ListItem>
-              <ListItem
+              {/* <ListItem
                 button
                 onClick={(e) => {
                   // console.log(e.currentTarget.innerText);
@@ -559,8 +559,8 @@ export const AdminPanel = () => {
                   <BookIcon />
                 </ListItemIcon>
                 <ListItemText primary="Blog" />
-              </ListItem>
-              <ListItem
+              </ListItem> */}
+              {/* <ListItem
                 button
                 onClick={(e) => {
                   // console.log(e.currentTarget.innerText);
@@ -571,7 +571,7 @@ export const AdminPanel = () => {
                   <MessageIcon />
                 </ListItemIcon>
                 <ListItemText primary="Communication" />
-              </ListItem>
+              </ListItem> */}
             </div>
           </List>
           {/* List of left nav */}
