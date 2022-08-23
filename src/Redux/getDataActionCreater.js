@@ -8,14 +8,16 @@ const { getDataAction, loginUserAction, logoutUserAction, addSecretKeyAction } =
 //   loaderEndActionCreater,
 // } from "./Loader/LoaderActionCreator";
 
-const getData = async (dispatch) => {
+const getData = async (dispatch,userData) => {
   try {
     // const add = process.env.PORTFOLIO_LOCAL_API;
-    console.log("add");
+    // console.log("add",userData.uid);
     // "https://dynamic-portfolio-api.herokuapp.com/portfolio/get"
-    const response = await axios.get(
-      `https://dynamic-portfolio-api.herokuapp.com/portfolio/get`
-    );
+    const response = await axios.get(`http://localhost:8080/portfolio/get`, {
+      params: {
+        uid: userData.uid,
+      },
+    });
     // console.log("Data : ", response.data);
 
     let data = response?.data?.reduce((ans, ele) => {
@@ -23,7 +25,7 @@ const getData = async (dispatch) => {
         ...ans,
         [`${ele.module}`]: {
           ...ans[`${ele?.module}`],
-          [`${ele.type}`]:
+          [`${ele.type.toLowerCase()}`]:
             ans[`${ele?.module}`] &&
             ans[`${ele?.module}`][`${ele?.type}`] &&
             ans[`${ele?.module}`][`${ele?.type}`].length > 0
@@ -41,12 +43,12 @@ const getData = async (dispatch) => {
   }
 };
 
-export const getDataActionCreater = () => {
+export const getDataActionCreater = (userData) => {
   // console.log("In getDataActionCreater : ");
 
   return async (dispatch) => {
     try {
-      let data = await getData(dispatch);
+      let data = await getData(dispatch,userData);
       // console.log("In getDataActionCreater : ", data);
       dispatch(getDataAction(data));
     } catch (err) {

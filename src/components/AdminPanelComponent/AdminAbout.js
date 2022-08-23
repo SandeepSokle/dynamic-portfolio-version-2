@@ -4,7 +4,10 @@ import ButtonGroup from "@mui/material/ButtonGroup";
 import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSave, handleUpdate } from "../HandleFunctions/handleFunctions";
+import {
+  handleSave,
+  handleUpdateProfile,
+} from "../HandleFunctions/handleFunctions";
 // import { getDataActionCreater } from "../Redux/getDataActionCreater";
 import { GeneralInputField } from "../GeneralComponents/GeneralInputField";
 import { openSnackbar } from "../../Redux/Snackbar/snackbarStore";
@@ -25,11 +28,6 @@ export const AdminAbout = (props) => {
     return state.data.user;
   });
 
-  const userSecret = useSelector((state) => {
-    // console.log(state);
-    return state.data.secret;
-  });
-
   const resetData = () => {
     if (newData) setData(newData[`${selectedVal.toLowerCase()}`][0]?.data);
     return;
@@ -37,23 +35,35 @@ export const AdminAbout = (props) => {
 
   React.useEffect(() => {
     if (newData) {
-      // console.log(newData);
-      setData(newData[`${selectedVal.toLowerCase()}`][0].data);
-      setSelectedID(newData[`${selectedVal.toLowerCase()}`][0].id);
+      console.log(newData, selectedVal.toLowerCase());
+      let newDa = newData[`${selectedVal.toLowerCase()}`]
+        ? newData[`${selectedVal.toLowerCase()}`][0]?.data
+        : {};
+
+      setData({ ...newDa });
+      setSelectedID(
+        newData[`${selectedVal.toLowerCase()}`]
+          ? newData[`${selectedVal.toLowerCase()}`][0]?.id
+          : ""
+      );
     }
   }, [newData, selectedVal]);
   // console.log("data!!", selectedId);
+  React.useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const handleSubmit = async (name) => {
+    console.log(selectedVal, selectedId);
     switch (selectedVal) {
       case "About Me":
         if (data?.name && data.name !== "") {
-          handleUpdate({
+          handleUpdateProfile({
             id: selectedId,
             data,
             dispatch,
             userData,
-            userSecret,
+            selectedVal,
           });
         } else {
           // alert("You can not submit empty field::");
@@ -72,12 +82,12 @@ export const AdminAbout = (props) => {
           data.street !== "" &&
           data.state !== ""
         ) {
-          handleUpdate({
+          handleUpdateProfile({
             id: selectedId,
             data,
             dispatch,
             userData,
-            userSecret,
+            selectedVal,
           });
         } else {
           // alert("You can not submit empty field::");
@@ -91,12 +101,12 @@ export const AdminAbout = (props) => {
           data.leetCodeName !== "" &&
           data.linkName !== ""
         ) {
-          handleUpdate({
+          handleUpdateProfile({
             id: selectedId,
             data,
             dispatch,
             userData,
-            userSecret,
+            selectedVal,
           });
         } else {
           // alert("You can not submit empty field::");
@@ -104,8 +114,7 @@ export const AdminAbout = (props) => {
         }
         break;
     }
-
-    dispatch(getDataActionCreater());
+    if (userData) dispatch(getDataActionCreater(userData));
   };
 
   const buttons = [

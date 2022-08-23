@@ -7,13 +7,32 @@ import {
 } from "../../Redux/Loader/LoaderActionCreator";
 import { openSnackbar } from "../../Redux/Snackbar/snackbarStore";
 
-const uuid = require("react-uuid");
-// const {
-//   ref,
-//   uploadBytesResumable,
-//   getDownloadURL,
-//   getStorage,
-// } = require("firebase/storage");
+
+
+export const handleUpdateProfile = async (props) => {
+  const { id, data, dispatch, userData, secretData, userSecret, selectedVal } =
+    props;
+  //   const dispatch = useDispatch();
+  // console.log(data);
+  let secret = { userData, secretData };
+  // console.log("Update Hit!!", props);
+  // `http://localhost:8080/` + `portfolio/update/${id}`,
+  try {
+    dispatch(loaderStartActionCreater());
+    const response = await axios.put(
+      `http://localhost:8080/` + `portfolio/update`,
+      { ...data, secret: { userData, userSecret }, id, selectedVal }
+    );
+    // console.log(response.data);
+
+    dispatch(getDataActionCreater(userData));
+    dispatch(openSnackbar("Details Updated Successfully", "success"));
+  } catch (err) {
+    console.log(err.response.data.message);
+    dispatch(loaderEndActionCreater());
+    dispatch(openSnackbar(err.response.data.message, "error"));
+  }
+};
 
 export const handleSave = async (props) => {
   const { selectedTab, selectedVal, data, dispatch, userData, userSecret } =
@@ -25,7 +44,7 @@ export const handleSave = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.post(
-      "https://dynamic-portfolio-api.herokuapp.com/" + "portfolio/save",
+      "http://localhost:8080/" + "portfolio/save",
       {
         data: data,
         id: "1234587678",
@@ -36,7 +55,7 @@ export const handleSave = async (props) => {
     );
     // console.log(response.data);
     dispatch(openSnackbar("Details Saved Successfully", "success"));
-    dispatch(getDataActionCreater());
+    dispatch(getDataActionCreater(userData));
   } catch (err) {
     // console.log(err.response.data.message);
     dispatch(loaderEndActionCreater());
@@ -53,7 +72,7 @@ export const handleDelete = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.put(
-      "https://dynamic-portfolio-api.herokuapp.com/" + `portfolio/delete/${id}`,
+      "http://localhost:8080/" + `portfolio/delete/${id}`,
       {
         secret,
       }
@@ -61,7 +80,7 @@ export const handleDelete = async (props) => {
     // console.log(response.data);
     dispatch(openSnackbar("Details Successfully Deleted", "success"));
 
-    dispatch(getDataActionCreater());
+    dispatch(getDataActionCreater(userData));
   } catch (err) {
     // console.log(err.response.data.message);
     dispatch(loaderEndActionCreater());
@@ -79,12 +98,12 @@ export const handleUpdate = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.put(
-      `https://dynamic-portfolio-api.herokuapp.com/` + `portfolio/update/${id}`,
+      `http://localhost:8080/` + `portfolio/update/${id}`,
       { ...data, secret: { userData, userSecret } }
     );
     // console.log(response.data);
 
-    dispatch(getDataActionCreater());
+    dispatch(getDataActionCreater(userData));
     dispatch(openSnackbar("Details Updated Successfully", "success"));
   } catch (err) {
     console.log(err.response.data.message);
@@ -100,14 +119,14 @@ export const saveUserDetails = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.post(
-      `https://dynamic-portfolio-api.herokuapp.com/` + `user/save`,
+      `http://localhost:8080/` + `user/save`,
       {
         data,
       }
     );
     // console.log(response.data);
 
-    dispatch(getDataActionCreater());
+    dispatch(getDataActionCreater(data));
   } catch (err) {
     console.log(err);
     dispatch(loaderEndActionCreater());
@@ -124,14 +143,14 @@ export const sendMessage = async (props) => {
     dispatch(loaderStartActionCreater());
 
     const response = await axios.post(
-      `https://dynamic-portfolio-api.herokuapp.com/` + `message/sendMessage`,
+      `http://localhost:8080/` + `message/sendMessage`,
       {
         data,
       }
     );
     // console.log(response.data);
 
-    dispatch(getDataActionCreater());
+    // dispatch(getDataActionCreater());
     // dispatch(loaderEndActionCreater());
     dispatch(openSnackbar("Sent Message Successfully", "success"));
   } catch (err) {
@@ -150,12 +169,12 @@ export const deleteMessage = async (props) => {
     dispatch(loaderStartActionCreater());
 
     const response = await axios.post(
-      `https://dynamic-portfolio-api.herokuapp.com/` +
+      `http://localhost:8080/` +
         `message/deleteMessage/${id}`
     );
     // console.log(response.data);
 
-    dispatch(getDataActionCreater());
+    // dispatch(getDataActionCreater());
     // dispatch(loaderEndActionCreater());
     dispatch(openSnackbar("Sent Message Successfully", "success"));
   } catch (err) {
@@ -173,7 +192,7 @@ export const getMessage = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.post(
-      `https://dynamic-portfolio-api.herokuapp.com/` + `message/getMessage`,
+      `http://localhost:8080/` + `message/getMessage`,
       {
         data,
       }
@@ -268,7 +287,7 @@ export const getMessage = async (props) => {
 
 //   try {
 //     const response = await axios.post(
-//       "https://dynamic-portfolio-api.herokuapp.com/" + "portfolio/checkCreds",
+//       "http://localhost:8080/" + "portfolio/checkCreds",
 //       {
 //         secret: { userData, userSecret },
 //       }
@@ -290,7 +309,7 @@ export const handleUpdateProjectStatus = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.put(
-      `https://dynamic-portfolio-api.herokuapp.com/` +
+      `http://localhost:8080/` +
         `portfolio/updateProjectStatus/${id}`,
       { ...data, secret: { userData, userSecret } }
     );
@@ -304,3 +323,4 @@ export const handleUpdateProjectStatus = async (props) => {
     dispatch(openSnackbar(err.response.data.message, "error"));
   }
 };
+

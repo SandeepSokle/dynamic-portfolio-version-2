@@ -12,6 +12,7 @@ import { GeneralInputField } from "../GeneralComponents/GeneralInputField";
 // import { DatePicker } from "@mui/x-date-pickers";
 // import { GeneralDatePicker } from "../GeneralComponents/GeneralDatePicker";
 import { getDataActionCreater } from "../../Redux/getDataActionCreater";
+import { handleSave, handleUpdate } from "../HandleFunctions/handleFunctions";
 
 export const AdminResume = (props) => {
   const { selectedTab } = props;
@@ -41,6 +42,8 @@ export const AdminResume = (props) => {
     return state?.data?.resume;
   });
 
+  console.log(newData);
+
   const userData = useSelector((state) => {
     // console.log(state);
     return state.data.user;
@@ -54,7 +57,7 @@ export const AdminResume = (props) => {
   // console.log(userSecret);
 
   // React.useEffect(() => {
-  //   dispatch(getDataActionCreater());
+  //   dispatch(getDataActionCreater(dispatch,userData));
   // }, []);
 
   React.useEffect(() => {
@@ -199,18 +202,18 @@ export const AdminResume = (props) => {
 
     if (isEdit) {
       console.info("Update Hit!!", selectedId.replace, userData, userSecret);
-      // handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
-      dispatch(getDataActionCreater());
+      handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
+      if (userData) dispatch(getDataActionCreater(userData));
     } else {
       // console.log("Save Hit!!", selectedTab, selectedVal, data);
-      // handleSave({
-      //   selectedTab,
-      //   selectedVal,
-      //   data,
-      //   dispatch,
-      //   userData,
-      //   userSecret,
-      // });
+      handleSave({
+        selectedTab,
+        selectedVal,
+        data,
+        dispatch,
+        userData,
+        userSecret,
+      });
     }
     setSelectedItem({});
     setData({});

@@ -45,7 +45,7 @@ export const AdminMessage = (props) => {
     if (isEdit) {
       console.info("Update Hit!!", selectedId);
       handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
-      dispatch(getDataActionCreater());
+     if(userData) dispatch(getDataActionCreater(userData));
     } else {
       // console.log("Save Hit!!", selectedTab, selectedVal, data);
       handleSave({

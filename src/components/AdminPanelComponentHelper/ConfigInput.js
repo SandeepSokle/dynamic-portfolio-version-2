@@ -97,7 +97,7 @@ const ConfigInput = (props) => {
       userData,
       userSecret,
     });
-    dispatch(getDataActionCreater());
+  if(userData)  dispatch(getDataActionCreater(userData));
   };
 
   const handlePopoverOpen = (event) => {
@@ -164,7 +164,7 @@ const ConfigInput = (props) => {
           onClick={() => {
             // console.log(id, element);
             handleDelete({ id, dispatch, userData, secretData });
-            dispatch(getDataActionCreater());
+          if(userData)  dispatch(getDataActionCreater());
           }}
         >
           {" "}

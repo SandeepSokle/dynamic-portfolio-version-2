@@ -65,7 +65,7 @@ export const AdminProjects = (props) => {
     if (isEdit) {
       console.info("Update Hit!!", selectedId, userData, userSecret);
       handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
-      dispatch(getDataActionCreater());
+   if(userData)   dispatch(getDataActionCreater(userData));
     } else {
       // console.log("Save Hit!!", userData, userSecret);
       handleSave({
