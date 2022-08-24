@@ -7,7 +7,11 @@ import { AdminResumeEducationData } from "../AdminPanelComponentHelper/AdminResu
 import EditIcon from "@mui/icons-material/Edit";
 // import { getDataActionCreater } from "../Redux/getDataActionCreater";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSave, handleUpdate } from "../HandleFunctions/handleFunctions";
+import {
+  fileUpload,
+  handleSave,
+  handleUpdate,
+} from "../HandleFunctions/handleFunctions";
 import { GeneralInputField } from "../GeneralComponents/GeneralInputField";
 // import { openSnackbar } from "../Redux/Snackbar/snackbarStore";
 import { getDataActionCreater } from "../../Redux/getDataActionCreater";
@@ -21,6 +25,8 @@ export const AdminProjects = (props) => {
   const [editLink, setEditLink] = React.useState(false);
   const [isEdit, setIsEdit] = React.useState(false);
   const [data, setData] = React.useState({});
+  const [file, setFile] = React.useState(null);
+  const [isFileUpload, setIsFileUpload] = React.useState(false);
   const dispatch = useDispatch();
 
   // React.useEffect(() => {
@@ -44,6 +50,26 @@ export const AdminProjects = (props) => {
     setData(selectedItem);
   }, [selectedItem]);
 
+  const handlePreSubmit = () => {
+    fileUpload({
+      file,
+      dispatch,
+      storeValue: "file",
+      data,
+      setData,
+      userData,
+      userSecret,
+      setIsFileUpload,
+    });
+  };
+
+  React.useEffect(() => {
+    if (isFileUpload) {
+      handleSubmit();
+      setIsFileUpload(false)
+    }
+  });
+
   const handleSubmit = async (name) => {
     // console.log("Selected Data", selectedVal, data);
 
@@ -59,15 +85,18 @@ export const AdminProjects = (props) => {
     ) {
       // dispatch(openSnackbar("You can not submit empty field::", "error"));
       // alert("You can not submit empty field::");
+      console.log("You can not submit empty field::");
       return;
     }
 
     if (isEdit) {
       console.info("Update Hit!!", selectedId, userData, userSecret);
+
       handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
-   if(userData)   dispatch(getDataActionCreater(userData));
+      if (userData) dispatch(getDataActionCreater(userData));
     } else {
-      // console.log("Save Hit!!", userData, userSecret);
+      console.log("Save Hit!!", userData, userSecret);
+
       handleSave({
         selectedTab,
         selectedVal,
@@ -273,7 +302,8 @@ export const AdminProjects = (props) => {
                 // value = {data?.file}
                 // name={data?.file}
                 onChange={async (e) => {
-                  // console.log("target", e.target.files);
+                  console.log("target", e.target.files);
+                  setFile(e.target.files[0]);
                   // const creds = await checkCreds({
                   //   dispatch,
                   //   userData,
@@ -281,21 +311,21 @@ export const AdminProjects = (props) => {
                   // });
                   // console.log(creds);
                   // if (creds) {
-                  //   let fileUrl = await fileUpload({
-                  //     file: e.target.files[0],
-                  //     dispatch,
-                  //     storeValue: "file",
-                  //     data,
-                  //     setData,
-                  //     userData,
-                  //     userSecret,
-                  //   });
+                  // let fileUrl = await fileUpload({
+                  //   file: e.target.files[0],
+                  //   dispatch,
+                  //   storeValue: "file",
+                  //   data,
+                  //   setData,
+                  //   userData,
+                  //   userSecret,
+                  // });
                   // }
                   // console.log("fileUrl :: before");
-                  // console.log(fileUrl);
+                  // // console.log(fileUrl);
                   // console.log("fileUrl :: after");
                 }}
-                // value={selectedItem.name ? `${selectedItem.img}` : ""}
+                // value={selectedItem.name ? `${selectedItem.img}` : file}
               />
             )}
 
@@ -371,7 +401,7 @@ export const AdminProjects = (props) => {
             }}
             width
           >
-            <Button variant="contained" onClick={handleSubmit}>
+            <Button variant="contained" onClick={handlePreSubmit}>
               {isEdit ? "Update Data" : "Save Data"}
             </Button>
           </Box>

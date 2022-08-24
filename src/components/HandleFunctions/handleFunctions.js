@@ -6,7 +6,13 @@ import {
   loaderStartActionCreater,
 } from "../../Redux/Loader/LoaderActionCreator";
 import { openSnackbar } from "../../Redux/Snackbar/snackbarStore";
-
+const uuid = require("react-uuid");
+const {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  getStorage,
+} = require("firebase/storage");
 
 
 export const handleUpdateProfile = async (props) => {
@@ -208,96 +214,97 @@ export const getMessage = async (props) => {
   }
 };
 
-// export const fileUpload = async (props) => {
-//   const { file, dispatch, storeValue, setData, data, userData, userSecret } =
-//     props;
-//   //   const dispatch = useDispatch()
-//   // console.log(file.name)
+export const fileUpload = async (props) => {
+  const { file, dispatch, storeValue, setData, data, userData, userSecret,setIsFileUpload } =
+    props;
+  //   const dispatch = useDispatch()
+  // console.log(file.name)
 
-//   try {
-//     const creds = await checkCreds({ userData, userSecret });
-//     if (!creds) {
-//       throw "Unautorized User!!";
-//     }
+  try {
+    // const creds = await checkCreds({ userData, userSecret });
+    // if (!creds) {
+    //   throw "Unautorized User!!";
+    // }
 
-//     const storageRef = ref(getStorage(), "images/" + uuid() + "_" + file.name);
-//     let fileUrl = "";
-//     dispatch(loaderStartActionCreater());
-//     const uploadTask = uploadBytesResumable(storageRef, file);
+    const storageRef = ref(getStorage(), "images/" + uuid() + "_" + file.name);
+    let fileUrl = "";
+    dispatch(loaderStartActionCreater());
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-//     uploadTask.on(
-//       "state_changed",
-//       (snapshot) => {
-//         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-//         const progress =
-//           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-//         console.log("Upload is " + progress + "% done");
-//         switch (snapshot.state) {
-//           case "paused":
-//             console.log("Upload is paused");
-//             break;
-//           case "running":
-//             console.log("Upload is running");
-//             break;
-//         }
-//       },
-//       (error) => {
-//         // A full list of error codes is available at
-//         // https://firebase.google.com/docs/storage/web/handle-errors
-//         switch (error.code) {
-//           case "storage/unauthorized":
-//             // User doesn't have permission to access the object
-//             break;
-//           case "storage/canceled":
-//             // User canceled the upload
-//             break;
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            break;
 
-//           // ...
+          // ...
 
-//           case "storage/unknown":
-//             // Unknown error occurred, inspect error.serverResponse
-//             break;
-//         }
-//       },
-//       () => {
-//         // Upload completed successfully, now we can get the download URL
-//         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-//           // console.log("File available at", downloadURL);
-//           let newData = data;
-//           newData[`${storeValue}`] = downloadURL;
-//           setData(newData);
-//           fileUrl = downloadURL;
-//           dispatch(loaderEndActionCreater());
-//         });
-//       }
-//     );
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          // console.log("File available at", downloadURL);
+          let newData = data;
+          newData[`${storeValue}`] = downloadURL;
+          setData(newData);
+          setIsFileUpload(true)
+          fileUrl = downloadURL;
+          dispatch(loaderEndActionCreater());
+        });
+      }
+    );
 
-//     //updateData
-//     return fileUrl;
-//   } catch (err) {
-//     dispatch(loaderEndActionCreater());
-//     console.log(err);
-//     dispatch(openSnackbar(err, "error"));
-//   }
-// };
+    //updateData
+    return fileUrl;
+  } catch (err) {
+    dispatch(loaderEndActionCreater());
+    console.log(err);
+    dispatch(openSnackbar(err, "error"));
+  }
+};
 
-// export const checkCreds = async (props) => {
-//   const { selectedTab, selectedVal, data, dispatch, userData, userSecret } =
-//     props;
+export const checkCreds = async (props) => {
+  const { selectedTab, selectedVal, data, dispatch, userData, userSecret } =
+    props;
 
-//   try {
-//     const response = await axios.post(
-//       "http://localhost:8080/" + "portfolio/checkCreds",
-//       {
-//         secret: { userData, userSecret },
-//       }
-//     );
-//     return true;
-//   } catch (err) {
-//     console.log(err.response.data.message);
-//     return false;
-//   }
-// };
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/" + "portfolio/checkCreds",
+      {
+        secret: { userData, userSecret },
+      }
+    );
+    return true;
+  } catch (err) {
+    console.log(err.response.data.message);
+    return false;
+  }
+};
 
 export const handleUpdateProjectStatus = async (props) => {
   const { id, data, dispatch, userData, secretData, userSecret } = props;
