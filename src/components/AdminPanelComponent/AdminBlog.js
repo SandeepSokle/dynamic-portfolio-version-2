@@ -29,10 +29,7 @@ export const AdminBlog = (props) => {
     // console.log(state)
     return state?.data?.user;
   });
-  const userSecret = useSelector((state) => {
-    // console.log(state)
-    return state?.data?.secret;
-  });
+ 
 
   React.useEffect(() => {
     // console.log("selectedItem", selectedItem);
@@ -55,7 +52,7 @@ export const AdminBlog = (props) => {
     }
     if (isEdit) {
       console.info("Update Hit!!", selectedId);
-      handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
+      handleUpdate({ id: selectedId, data, dispatch, userData });
       if(userData)
       dispatch(getDataActionCreater(userData));
     } else {
@@ -66,7 +63,7 @@ export const AdminBlog = (props) => {
         data,
         dispatch,
         userData,
-        userSecret,
+        
       });
     }
     setSelectedItem({});

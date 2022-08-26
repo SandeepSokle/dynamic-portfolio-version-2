@@ -40,10 +40,7 @@ export const AdminProjects = (props) => {
     // console.log(state)
     return state?.data?.user;
   });
-  const userSecret = useSelector((state) => {
-    // console.log(state)
-    return state?.data?.secret;
-  });
+
 
   React.useEffect(() => {
     // console.log("selectedItem", selectedItem);
@@ -58,7 +55,6 @@ export const AdminProjects = (props) => {
       data,
       setData,
       userData,
-      userSecret,
       setIsFileUpload,
     });
   };
@@ -66,7 +62,7 @@ export const AdminProjects = (props) => {
   React.useEffect(() => {
     if (isFileUpload) {
       handleSubmit();
-      setIsFileUpload(false)
+      setIsFileUpload(false);
     }
   });
 
@@ -90,25 +86,24 @@ export const AdminProjects = (props) => {
     }
 
     if (isEdit) {
-      console.info("Update Hit!!", selectedId, userData, userSecret);
-
-      handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
-      if (userData) dispatch(getDataActionCreater(userData));
+      // console.info("Update Hit!!", selectedId, userData);
+      handleUpdate({ id: selectedId, data, dispatch, userData });
     } else {
-      console.log("Save Hit!!", userData, userSecret);
-
+      console.log("Save Hit!!", userData);
+      
       handleSave({
         selectedTab,
         selectedVal,
         data,
         dispatch,
         userData,
-        userSecret,
       });
     }
+    if (userData) dispatch(getDataActionCreater(userData));
     setSelectedItem({});
     setData({});
     setIsEdit(false);
+    setFile(null);
   };
 
   const buttons = [
@@ -204,6 +199,8 @@ export const AdminProjects = (props) => {
             variant="contained"
             onClick={() => {
               setSelectedItem({});
+              setData({});
+              setIsEdit(false);
             }}
           >
             UnSelect Data
@@ -307,7 +304,6 @@ export const AdminProjects = (props) => {
                   // const creds = await checkCreds({
                   //   dispatch,
                   //   userData,
-                  //   userSecret,
                   // });
                   // console.log(creds);
                   // if (creds) {
@@ -318,7 +314,6 @@ export const AdminProjects = (props) => {
                   //   data,
                   //   setData,
                   //   userData,
-                  //   userSecret,
                   // });
                   // }
                   // console.log("fileUrl :: before");

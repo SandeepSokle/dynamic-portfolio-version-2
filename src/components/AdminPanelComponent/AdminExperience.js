@@ -25,10 +25,7 @@ export const AdminExperience = (props) => {
     // console.log(state)
     return state?.data?.user;
   });
-  const userSecret = useSelector((state) => {
-    // console.log(state)
-    return state?.data?.secret;
-  });
+
 
   React.useEffect(() => {
     // console.log("selectedItem", selectedItem);
@@ -49,17 +46,15 @@ export const AdminExperience = (props) => {
       data.experience === "" ||
       data.response === ""
     ) {
-          // dispatch(openSnackbar("You can not submit empty field::", "error"));
-          // alert("You can not submit empty field::");
+      // dispatch(openSnackbar("You can not submit empty field::", "error"));
+      // alert("You can not submit empty field::");
       return;
     }
     // console.log("Selected Data after rejection ::", selectedVal, data);
 
     if (isEdit) {
       console.info("Update Hit!!", selectedId);
-      handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
-     if(userData)
-      dispatch(getDataActionCreater(userData));
+      handleUpdate({ id: selectedId, data, dispatch, userData });
     } else {
       // console.log("Save Hit!!", selectedTab, selectedVal, data);
       handleSave({
@@ -68,9 +63,10 @@ export const AdminExperience = (props) => {
         data,
         dispatch,
         userData,
-        userSecret,
+        
       });
     }
+    if (userData) dispatch(getDataActionCreater(userData));
     setSelectedItem({});
     setData({});
     setIsEdit(false);
@@ -132,6 +128,14 @@ export const AdminExperience = (props) => {
           }}
           width
         >
+          <Button
+            variant="contained"
+            onClick={() => {
+              dispatch(getDataActionCreater(userData));
+            }}
+          >
+            reload
+          </Button>
           <Button
             variant="contained"
             onClick={() => {

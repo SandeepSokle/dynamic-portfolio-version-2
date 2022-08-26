@@ -62,14 +62,10 @@ const ConfigInputCommunication = (props) => {
     // console.log(state)
     return state?.data?.user;
   });
-  const userSecret = useSelector((state) => {
-    // console.log(state)
-    return state?.data?.secret;
-  });
 
   const handleDelete = async (data) => {
     deleteMessage(data);
-    let resData = await getMessage({ userData, userSecret, dispatch });
+    let resData = await getMessage({ userData, dispatch });
     // console.log("resData", resData);
     setData(resData);
   };

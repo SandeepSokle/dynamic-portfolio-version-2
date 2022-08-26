@@ -16,18 +16,18 @@ const {
 
 
 export const handleUpdateProfile = async (props) => {
-  const { id, data, dispatch, userData, secretData, userSecret, selectedVal } =
+  const { id, data, dispatch, userData,  selectedVal } =
     props;
   //   const dispatch = useDispatch();
   // console.log(data);
-  let secret = { userData, secretData };
+  let secret = { userData };
   // console.log("Update Hit!!", props);
   // `http://localhost:8080/` + `portfolio/update/${id}`,
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.put(
       `http://localhost:8080/` + `portfolio/update`,
-      { ...data, secret: { userData, userSecret }, id, selectedVal }
+      { ...data, secret: { userData }, id, selectedVal }
     );
     // console.log(response.data);
 
@@ -41,7 +41,7 @@ export const handleUpdateProfile = async (props) => {
 };
 
 export const handleSave = async (props) => {
-  const { selectedTab, selectedVal, data, dispatch, userData, userSecret } =
+  const { selectedTab, selectedVal, data, dispatch, userData } =
     props;
   //   const dispatch = useDispatch();
   // console.log("Save Hit!!");
@@ -56,7 +56,7 @@ export const handleSave = async (props) => {
         id: "1234587678",
         module: selectedTab.toLowerCase(),
         type: selectedVal.toLowerCase(),
-        secret: { userData, userSecret },
+        secret: { userData },
       }
     );
     // console.log(response.data);
@@ -70,10 +70,10 @@ export const handleSave = async (props) => {
 };
 
 export const handleDelete = async (props) => {
-  const { id, dispatch, userData, secretData } = props;
+  const { id, dispatch, userData } = props;
   //   const dispatch = useDispatch();
   // console.log("Delete Hit!!", id);
-  const secret = { userData, userSecret: secretData };
+  const secret = { userData };
   // "http://localhost:8080/" + `portfolio/delete/${id}`,
   try {
     dispatch(loaderStartActionCreater());
@@ -84,28 +84,29 @@ export const handleDelete = async (props) => {
       }
     );
     // console.log(response.data);
+    dispatch(getDataActionCreater(userData));
     dispatch(openSnackbar("Details Successfully Deleted", "success"));
 
-    dispatch(getDataActionCreater(userData));
   } catch (err) {
     // console.log(err.response.data.message);
+    dispatch(getDataActionCreater(userData));
     dispatch(loaderEndActionCreater());
     dispatch(openSnackbar(err.response.data.message, "error"));
   }
 };
 
 export const handleUpdate = async (props) => {
-  const { id, data, dispatch, userData, secretData, userSecret } = props;
+  const { id, data, dispatch, userData } = props;
   //   const dispatch = useDispatch();
   // console.log(data);
-  let secret = { userData, secretData };
+  let secret = { userData };
   // console.log("Update Hit!!", props);
   // `http://localhost:8080/` + `portfolio/update/${id}`,
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.put(
       `http://localhost:8080/` + `portfolio/update/${id}`,
-      { ...data, secret: { userData, userSecret } }
+      { ...data, secret: { userData } }
     );
     // console.log(response.data);
 
@@ -190,11 +191,11 @@ export const deleteMessage = async (props) => {
 };
 
 export const getMessage = async (props) => {
-  const { userData, userSecret, dispatch } = props;
+  const { userData, dispatch } = props;
 
   // console.log("In handle Function!!", data);
   // `http://localhost:8080/` + `message/getMessage`,
-  let data = { userData, userSecret };
+  let data = { userData };
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.post(
@@ -215,17 +216,12 @@ export const getMessage = async (props) => {
 };
 
 export const fileUpload = async (props) => {
-  const { file, dispatch, storeValue, setData, data, userData, userSecret,setIsFileUpload } =
+  const { file, dispatch, storeValue, setData, data, userData, setIsFileUpload } =
     props;
   //   const dispatch = useDispatch()
   // console.log(file.name)
 
   try {
-    // const creds = await checkCreds({ userData, userSecret });
-    // if (!creds) {
-    //   throw "Unautorized User!!";
-    // }
-
     const storageRef = ref(getStorage(), "images/" + uuid() + "_" + file.name);
     let fileUrl = "";
     dispatch(loaderStartActionCreater());
@@ -289,14 +285,14 @@ export const fileUpload = async (props) => {
 };
 
 export const checkCreds = async (props) => {
-  const { selectedTab, selectedVal, data, dispatch, userData, userSecret } =
+  const { selectedTab, selectedVal, data, dispatch, userData } =
     props;
 
   try {
     const response = await axios.post(
       "http://localhost:8080/" + "portfolio/checkCreds",
       {
-        secret: { userData, userSecret },
+        secret: { userData },
       }
     );
     return true;
@@ -307,10 +303,10 @@ export const checkCreds = async (props) => {
 };
 
 export const handleUpdateProjectStatus = async (props) => {
-  const { id, data, dispatch, userData, secretData, userSecret } = props;
+  const { id, data, dispatch, userData} = props;
   //   const dispatch = useDispatch();
   // console.log(data);
-  let secret = { userData, secretData };
+  let secret = { userData };
   // console.log("Update Hit!!", props);
   // `http://localhost:8080/` + `portfolio/updateProjectStatus/${id}`,
   try {
@@ -318,11 +314,11 @@ export const handleUpdateProjectStatus = async (props) => {
     const response = await axios.put(
       `http://localhost:8080/` +
         `portfolio/updateProjectStatus/${id}`,
-      { ...data, secret: { userData, userSecret } }
+      { ...data, secret: { userData } }
     );
     // console.log(response.data);
 
-    dispatch(getDataActionCreater());
+    dispatch(getDataActionCreater(userData));
     dispatch(openSnackbar("Details Updated Successfully", "success"));
   } catch (err) {
     console.log(err.response.data.message);

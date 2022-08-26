@@ -49,12 +49,7 @@ export const AdminResume = (props) => {
     return state.data.user;
   });
 
-  const userSecret = useSelector((state) => {
-    // console.log(state.data);
-    return state.data.secret;
-  });
-
-  // console.log(userSecret);
+  
 
   // React.useEffect(() => {
   //   dispatch(getDataActionCreater(dispatch,userData));
@@ -201,8 +196,8 @@ export const AdminResume = (props) => {
     }
 
     if (isEdit) {
-      console.info("Update Hit!!", selectedId.replace, userData, userSecret);
-      handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
+      console.info("Update Hit!!", selectedId.replace, userData);
+      handleUpdate({ id: selectedId, data, dispatch, userData });
       if (userData) dispatch(getDataActionCreater(userData));
     } else {
       // console.log("Save Hit!!", selectedTab, selectedVal, data);
@@ -212,7 +207,6 @@ export const AdminResume = (props) => {
         data,
         dispatch,
         userData,
-        userSecret,
       });
     }
     setSelectedItem({});
@@ -257,12 +251,6 @@ export const AdminResume = (props) => {
                   selectedItem={selectedItem}
                   data={data}
                   setData={setData}
-                  // disabled={
-                  //   userData?.email === "sandeepsokle12@gmail.com" ||
-                  //   userSecret === "Sandeep@Sokle12"
-                  //     ? false
-                  //     : true
-                  // }
                   width="48%"
                   place={"School / Institute Name"}
                   // value={data?.name}

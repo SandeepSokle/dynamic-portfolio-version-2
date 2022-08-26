@@ -29,22 +29,14 @@ export const AdminMessage = (props) => {
     // console.log(state)
     return state?.data?.user;
   });
-  const userSecret = useSelector((state) => {
-    // console.log(state)
-    return state?.data?.secret;
-  });
 
-  // React.useEffect(async () => {
-  //   let resData = await getMessage({ userData, userSecret, dispatch });
-  //   // console.log("resData", resData);
-  //   setData(resData);
-  // }, [userData, userSecret]);
+
 
   const handleSubmit = async (name) => {
     // console.log("Selected Data", name);
     if (isEdit) {
       console.info("Update Hit!!", selectedId);
-      handleUpdate({ id: selectedId, data, dispatch, userData, userSecret });
+      handleUpdate({ id: selectedId, data, dispatch, userData });
      if(userData) dispatch(getDataActionCreater(userData));
     } else {
       // console.log("Save Hit!!", selectedTab, selectedVal, data);
@@ -54,7 +46,7 @@ export const AdminMessage = (props) => {
         data,
         dispatch,
         userData,
-        userSecret,
+     
       });
     }
     setSelectedItem({});
@@ -84,7 +76,6 @@ export const AdminMessage = (props) => {
             onClick={async () => {
               let resData = await getMessage({
                 userData,
-                userSecret,
                 dispatch,
               });
               // console.log("resData", resData);

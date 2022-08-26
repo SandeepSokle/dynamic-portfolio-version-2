@@ -70,16 +70,6 @@ const ConfigInput = (props) => {
     if (setIsEdit) setIsEdit(true);
   };
 
-  const secretData = useSelector((state) => {
-    // console.log(state)
-    return state?.data?.secret;
-  });
-
-  const userSecret = useSelector((state) => {
-    // console.log(state);
-    return state.data.secret;
-  });
-
   const userData = useSelector((state) => {
     // console.log(state);
     return state.data.user;
@@ -95,9 +85,8 @@ const ConfigInput = (props) => {
       data,
       dispatch,
       userData,
-      userSecret,
     });
-  if(userData)  dispatch(getDataActionCreater(userData));
+    if (userData) dispatch(getDataActionCreater(userData));
   };
 
   const handlePopoverOpen = (event) => {
@@ -163,8 +152,9 @@ const ConfigInput = (props) => {
           style={{ width: "30%" }}
           onClick={() => {
             // console.log(id, element);
-            handleDelete({ id, dispatch, userData, secretData });
-          if(userData)  dispatch(getDataActionCreater());
+            handleDelete({ id, dispatch, userData });
+            if (setSelectedID) setSelectedID("");
+            if (userData) dispatch(getDataActionCreater(userData));
           }}
         >
           {" "}

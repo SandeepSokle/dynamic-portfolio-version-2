@@ -41,6 +41,7 @@ export const AdminAbout = (props) => {
         : {};
 
       setData({ ...newDa });
+      
       setSelectedID(
         newData[`${selectedVal.toLowerCase()}`]
           ? newData[`${selectedVal.toLowerCase()}`][0]?.id
