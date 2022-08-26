@@ -41,14 +41,19 @@ export const AdminAbout = (props) => {
         : {};
 
       setData({ ...newDa });
-      
+
       setSelectedID(
         newData[`${selectedVal.toLowerCase()}`]
           ? newData[`${selectedVal.toLowerCase()}`][0]?.id
           : ""
       );
     }
-  }, [newData, selectedVal]);
+  }, [newData]);
+
+  React.useEffect(() => {
+    if (userData) dispatch(getDataActionCreater(userData));
+  }, [selectedVal]);
+
   // console.log("data!!", selectedId);
   React.useEffect(() => {
     console.log(data);
