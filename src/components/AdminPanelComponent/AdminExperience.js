@@ -131,15 +131,9 @@ export const AdminExperience = (props) => {
           <Button
             variant="contained"
             onClick={() => {
-              dispatch(getDataActionCreater(userData));
-            }}
-          >
-            reload
-          </Button>
-          <Button
-            variant="contained"
-            onClick={() => {
               setSelectedItem({});
+              setData({});
+              setIsEdit(false);
             }}
           >
             UnSelect Data

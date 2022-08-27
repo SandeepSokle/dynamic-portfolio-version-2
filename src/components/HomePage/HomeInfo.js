@@ -6,7 +6,7 @@ const HomeInfo = () => {
     <div style={{ width: "100%", position: "relative" }}>
       <div className="background-img-main-container">
         <div className="section-title-container">
-          <div class="section-title">Elegant Inner Pages</div>
+          <div class="section-title">Share Your Inspirations</div>
         </div>
       </div>
       <div className="Boxes-container">

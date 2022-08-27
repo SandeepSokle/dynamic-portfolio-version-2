@@ -121,6 +121,8 @@ export const AdminBlog = (props) => {
             variant="contained"
             onClick={() => {
               setSelectedItem({});
+              setData({});
+              setIsEdit(false);
             }}
           >
             UnSelect Data

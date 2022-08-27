@@ -19,19 +19,19 @@ import ListItemText from "@mui/material/ListItemText";
 import InfoIcon from "@mui/icons-material/Info";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import WorkIcon from "@mui/icons-material/Work";
-// import BookIcon from "@mui/icons-material/Book";
+import BookIcon from "@mui/icons-material/Book";
 // import MessageIcon from "@mui/icons-material/Message";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import { AdminAbout } from "../AdminPanelComponent/AdminAbout";
 import { AdminResume } from "../AdminPanelComponent/AdminResume";
 import { AdminProjects } from "../AdminPanelComponent/AdminProjects";
 import { AdminExperience } from "../AdminPanelComponent/AdminExperience";
-// import { AdminBlog } from "../AdminPanelComponent/AdminBlog";
+import { AdminBlog } from "../AdminPanelComponent/AdminBlog";
 import { AdminContacts } from "../AdminPanelComponent/AdminContacts";
 // import { AdminMessage } from "../AdminPanelComponent/AdminMessage";
 import {
   // addSecretKeyActionCreater,
-  getDataActionCreater,
+  getDataActionCreater, logoutUserActionCreater,
   // logoutUserActionCreater,
 } from "../../Redux/getDataActionCreater";
 import { useDispatch, useSelector } from "react-redux";
@@ -130,12 +130,7 @@ const mdTheme = createTheme();
 export const AdminPanel = () => {
   const [open, setOpen] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const [anchorElBtn, setAnchorElBtn] = React.useState(null);
   const [selectedTab, setSelectedTab] = React.useState("About");
-  const [secretKey, setSecretKey] = React.useState("");
-  const [openSecretModel, setOpenSecretModel] = React.useState(false);
-  // const handleOpenSecretModel = () => setOpenSecretModel(true);
-  const handleCloseSecretModel = () => setOpenSecretModel(false);
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -165,8 +160,8 @@ export const AdminPanel = () => {
         return <AdminProjects selectedTab={val} />;
       case "Experience":
         return <AdminExperience selectedTab={val} />;
-      // case "Blog":
-      //   return <AdminBlog selectedTab={val} />;
+      case "Blog":
+        return <AdminBlog selectedTab={val} />;
       // case "Communication":
       //   return <AdminMessage selectedTab={val} />;
       case "Contacts":
@@ -175,18 +170,6 @@ export const AdminPanel = () => {
         return <AdminAbout selectedTab={val} />;
     }
   };
-
-
-
-  const secretKeyFromStore = useSelector((state) => {
-    // console.log(state.data.user);
-    return state.data.secret;
-  });
-
-  React.useEffect(() => {
-    // console.log(secretKeyFromStore);
-    setSecretKey(secretKeyFromStore || "");
-  }, [secretKeyFromStore]);
 
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -398,7 +381,7 @@ export const AdminPanel = () => {
                       }}
                       variant="contained"
                       onClick={() => {
-                        // dispatch(logoutUserActionCreater());
+                        dispatch(logoutUserActionCreater());
                         history.push("/");
                       }}
                     >
@@ -406,84 +389,6 @@ export const AdminPanel = () => {
                     </Button>
                   </Typography>
                 </Popover>
-                {openSecretModel ? (
-                  <Modal
-                    open={openModel}
-                    onClose={handleCloseSecretModel}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                      <Typography
-                        id="modal-modal-title"
-                        variant="h6"
-                        component="h2"
-                      >
-                        Enter Your Secret Key
-                      </Typography>
-                      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        <div>
-                          <TextField
-                            fullWidth
-                            // type="password"
-                            id="outlined-basic"
-                            label="Secret Key"
-                            placeholder={`${
-                              secretKey || "Enter Your Secret Key"
-                            }`}
-                            value={`${secretKey || ""}`}
-                            variant="outlined"
-                            onChange={(ele) => {
-                              setSecretKey(ele.target.value);
-                            }}
-                            autoFocus
-                          />
-                        </div>
-                        <div
-                          style={{
-                            textAlign: "end",
-                          }}
-                        >
-                          {" "}
-                          <Button
-                            sx={{
-                              m: "8px 8px",
-                              mb: "0px",
-                              // fontSize: "18px",
-                              // fontWeight: "bold",
-                            }}
-                            variant="text"
-                            onClick={(ele) => {
-                              handleCloseSecretModel();
-                              handleClose();
-                            }}
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            sx={{
-                              m: "8px 2px",
-                              mb: "0px",
-                              // fontSize: "18px",
-                              // fontWeight: "bold",
-                            }}
-                            variant="contained"
-                            onClick={(ele) => {
-                              // console.log(secretKey)
-                              handleCloseSecretModel();
-                              handleClose();
-                              // dispatch(addSecretKeyActionCreater(secretKey));
-                            }}
-                          >
-                            Add
-                          </Button>
-                        </div>
-                      </Typography>
-                    </Box>
-                  </Modal>
-                ) : (
-                  ""
-                )}
               </div>
             </div>
           </Toolbar>
@@ -554,7 +459,7 @@ export const AdminPanel = () => {
                 </ListItemIcon>
                 <ListItemText primary="Experience" />
               </ListItem>
-              {/* <ListItem
+              <ListItem
                 button
                 onClick={(e) => {
                   // console.log(e.currentTarget.innerText);
@@ -565,7 +470,7 @@ export const AdminPanel = () => {
                   <BookIcon />
                 </ListItemIcon>
                 <ListItemText primary="Blog" />
-              </ListItem> */}
+              </ListItem>
               {/* <ListItem
                 button
                 onClick={(e) => {
@@ -582,8 +487,6 @@ export const AdminPanel = () => {
           </List>
           {/* List of left nav */}
         </Drawer>
-        {/* ///Container */}
-        {/* {userData || secretKey ? "" : setSecretKey(prompt("Enter Your Secret Key!!"))} */}
         <Box
           component="main"
           sx={{

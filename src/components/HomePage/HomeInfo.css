@@ -9,14 +9,16 @@
 .section-title-container{
     height: fit-content;
     padding: 13% 35%;
+    width:100%
 }
 .section-title{
     font-size: 50px;
-    font-weight: 800;
+    /* font-weight: 800; */
     line-height: 28px;
     padding-top: 20px;
     color: #fff;
     text-shadow: 0 6px #232323;
+
 }
 .Boxes-container{
     width: 80%;
@@ -27,4 +29,5 @@
     padding: 5% 9%;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }

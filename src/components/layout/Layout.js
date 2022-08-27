@@ -7,24 +7,17 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Header from "../HomePage/header";
 import HomeInfo from "../HomePage/HomeInfo";
+import InfoContainer from "../HomePage/InfoContainer";
+import FeatureContainer from "../HomePage/FeatureContainer";
 
 const mdTheme = createTheme();
 
 export const Layout = () => {
   const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
   const [selectedTab, setSelectedTab] = useState("/");
   const history = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
-  };
-
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
   };
 
   useEffect(() => {
@@ -40,14 +33,7 @@ export const Layout = () => {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <NavbarTop
-          open={open}
-          toggleDrawer={toggleDrawer}
-          anchorEl={anchorEl}
-          handlePopoverOpen={handlePopoverOpen}
-          handlePopoverClose={handlePopoverClose}
-          setSelectedTab={setSelectedTab}
-        />
+        <NavbarTop open={open} toggleDrawer={toggleDrawer} />
         <NavBarDrawer
           open={open}
           toggleDrawer={toggleDrawer}
@@ -67,10 +53,11 @@ export const Layout = () => {
             padding: "0px",
           }}
         >
-          <Box sx={{  p: 0 }}>
-            {/* <h1>{selectedTab}</h1> */}
+          <Box sx={{ p: 0 }}>
             <Header />
-            <HomeInfo/>
+            <InfoContainer />
+            <FeatureContainer open={open} />
+            <HomeInfo />
           </Box>
         </Box>
       </Box>
