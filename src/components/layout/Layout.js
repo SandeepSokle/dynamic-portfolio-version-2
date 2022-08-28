@@ -9,6 +9,7 @@ import Header from "../HomePage/header";
 import HomeInfo from "../HomePage/HomeInfo";
 import InfoContainer from "../HomePage/InfoContainer";
 import FeatureContainer from "../HomePage/FeatureContainer";
+import { Footer } from "../HomePage/Footer";
 
 const mdTheme = createTheme();
 
@@ -58,6 +59,7 @@ export const Layout = () => {
             <InfoContainer />
             <FeatureContainer open={open} />
             <HomeInfo />
+            <Footer/>
           </Box>
         </Box>
       </Box>

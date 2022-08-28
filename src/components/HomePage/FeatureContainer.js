@@ -36,7 +36,7 @@ const FeatureList = [
   },
 ];
 
-const FeatureContainer = () => {
+const FeatureContainer = ({open}) => {
   return (
     <Box
       sx={{
@@ -49,6 +49,7 @@ const FeatureContainer = () => {
         width: "98vw",
         overflowY: "hidden",
         padding: "2rem 6rem",
+        paddingLeft : `${`${open ? "16rem" : "6rem"}`}`
       }}
     >
       <div
