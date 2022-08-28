@@ -22,9 +22,9 @@ export const AdminExperience = (props) => {
     return state?.data?.experience;
   });
   const userData = useSelector((state) => {
-    // console.log(state)
     return state?.data?.user;
   });
+  console.log(newData)
 
 
   React.useEffect(() => {

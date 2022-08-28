@@ -14,10 +14,8 @@ const {
   getStorage,
 } = require("firebase/storage");
 
-
 export const handleUpdateProfile = async (props) => {
-  const { id, data, dispatch, userData,  selectedVal } =
-    props;
+  const { id, data, dispatch, userData, selectedVal } = props;
   //   const dispatch = useDispatch();
   // console.log(data);
   let secret = { userData };
@@ -41,8 +39,7 @@ export const handleUpdateProfile = async (props) => {
 };
 
 export const handleSave = async (props) => {
-  const { selectedTab, selectedVal, data, dispatch, userData } =
-    props;
+  const { selectedTab, selectedVal, data, dispatch, userData } = props;
   //   const dispatch = useDispatch();
   // console.log("Save Hit!!");
   // http://localhost:8080/
@@ -83,10 +80,10 @@ export const handleDelete = async (props) => {
         secret,
       }
     );
-    // console.log(response.data);
-    dispatch(getDataActionCreater(userData));
-    dispatch(openSnackbar("Details Successfully Deleted", "success"));
 
+    // dispatch(getDataActionCreater(userData));
+    dispatch(openSnackbar("Details Successfully Deleted", "success"));
+    return response.data;
   } catch (err) {
     // console.log(err.response.data.message);
     dispatch(getDataActionCreater(userData));
@@ -125,12 +122,9 @@ export const saveUserDetails = async (props) => {
 
   try {
     dispatch(loaderStartActionCreater());
-    const response = await axios.post(
-      `http://localhost:8080/` + `user/save`,
-      {
-        data,
-      }
-    );
+    const response = await axios.post(`http://localhost:8080/` + `user/save`, {
+      data,
+    });
     // console.log(response.data);
 
     dispatch(getDataActionCreater(data));
@@ -176,8 +170,7 @@ export const deleteMessage = async (props) => {
     dispatch(loaderStartActionCreater());
 
     const response = await axios.post(
-      `http://localhost:8080/` +
-        `message/deleteMessage/${id}`
+      `http://localhost:8080/` + `message/deleteMessage/${id}`
     );
     // console.log(response.data);
 
@@ -216,8 +209,15 @@ export const getMessage = async (props) => {
 };
 
 export const fileUpload = async (props) => {
-  const { file, dispatch, storeValue, setData, data, userData, setIsFileUpload } =
-    props;
+  const {
+    file,
+    dispatch,
+    storeValue,
+    setData,
+    data,
+    userData,
+    setIsFileUpload,
+  } = props;
   //   const dispatch = useDispatch()
   // console.log(file.name)
 
@@ -268,7 +268,7 @@ export const fileUpload = async (props) => {
           let newData = data;
           newData[`${storeValue}`] = downloadURL;
           setData(newData);
-          setIsFileUpload(true)
+          setIsFileUpload(true);
           fileUrl = downloadURL;
           dispatch(loaderEndActionCreater());
         });
@@ -285,8 +285,7 @@ export const fileUpload = async (props) => {
 };
 
 export const checkCreds = async (props) => {
-  const { selectedTab, selectedVal, data, dispatch, userData } =
-    props;
+  const { selectedTab, selectedVal, data, dispatch, userData } = props;
 
   try {
     const response = await axios.post(
@@ -303,7 +302,7 @@ export const checkCreds = async (props) => {
 };
 
 export const handleUpdateProjectStatus = async (props) => {
-  const { id, data, dispatch, userData} = props;
+  const { id, data, dispatch, userData } = props;
   //   const dispatch = useDispatch();
   // console.log(data);
   let secret = { userData };
@@ -312,8 +311,7 @@ export const handleUpdateProjectStatus = async (props) => {
   try {
     dispatch(loaderStartActionCreater());
     const response = await axios.put(
-      `http://localhost:8080/` +
-        `portfolio/updateProjectStatus/${id}`,
+      `http://localhost:8080/` + `portfolio/updateProjectStatus/${id}`,
       { ...data, secret: { userData } }
     );
     // console.log(response.data);
@@ -326,4 +324,3 @@ export const handleUpdateProjectStatus = async (props) => {
     dispatch(openSnackbar(err.response.data.message, "error"));
   }
 };
-

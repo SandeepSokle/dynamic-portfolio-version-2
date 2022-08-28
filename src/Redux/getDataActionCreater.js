@@ -18,7 +18,7 @@ const getData = async (dispatch,userData) => {
         uid: userData.uid,
       },
     });
-    // console.log("Data : ", response.data);
+    console.log("Data : ", response.data);
 
     let data = response?.data?.reduce((ans, ele) => {
       return {

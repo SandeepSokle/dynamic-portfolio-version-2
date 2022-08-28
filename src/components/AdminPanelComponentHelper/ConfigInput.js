@@ -150,11 +150,12 @@ const ConfigInput = (props) => {
         </div>
         <div
           style={{ width: "30%" }}
-          onClick={() => {
+          onClick={async () => {
             // console.log(id, element);
-            handleDelete({ id, dispatch, userData });
-            if (setSelectedID) setSelectedID("");
+            await handleDelete({ id, dispatch, userData });
+
             if (userData) dispatch(getDataActionCreater(userData));
+            if (setSelectedID) setSelectedID("");
           }}
         >
           {" "}
