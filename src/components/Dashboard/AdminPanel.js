@@ -40,6 +40,7 @@ import { Button, Modal, Popover, TextField } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import { useNavigate } from "react-router-dom";
 import { loaderEndActionCreater } from "../../Redux/Loader/LoaderActionCreator";
+import ShareIcon from '@mui/icons-material/Share';
 const drawerWidth = 240;
 
 const style = {
@@ -244,6 +245,18 @@ export const AdminPanel = () => {
                   alignItems: "center",
                 }}
               >
+                <Button
+                  variant="contained"
+                  color="info"
+                  onClick={() => {
+                    history(`/detail/${userData.uid}`, { replace: false });
+                  }}
+                  sx={{
+                    m: "0rem 0.8rem",
+                  }}
+                >
+                  <ShareIcon />
+                </Button>
                 <div
                   style={{
                     fontSize: "1.3rem",

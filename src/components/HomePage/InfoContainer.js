@@ -24,7 +24,7 @@ const images = [
   {
     label: "Share your inspirations",
     imgPath:
-      "https://source.unsplash.com/1600x900/?inspiration=format&fit=crop&w=1400&h=1250&q=60",
+      "https://source.unsplash.com/1600x900/?share=format&fit=crop&w=1400&h=1250&q=60",
   },
   {
     label: "MAKE IT EASY TO NAVIGATE",

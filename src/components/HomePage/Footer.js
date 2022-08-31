@@ -24,16 +24,16 @@ export const Footer = () => {
   }, [aboutData]);
 
   useEffect(() => {
-    if (getCompleteData) {
-      let contacts = getCompleteData["contact details"][0]?.data;
+    // if (getCompleteData) {
+      // let contacts = getCompleteData["contact details"][0]?.data;
       let contactDetails = [
-        `Name : ${contacts.firstName} ${contacts.lastName}`,
-        `Street: ${contacts.street}`,
-        `City: ${contacts.city}`,
-        `State: ${contacts.state}`,
-        `PinCode: ${contacts.pinCode}`,
-        `Phone: ${contacts.phone}`,
-        `Email: ${contacts.email}`,
+        `Name : Sandeep Sokle`,
+        `Street: VPO Nidana, Teh Dist Jind`,
+        `City: Jind`,
+        `State: Haryana`,
+        `PinCode: 126102`,
+        `Phone: 9729928387`,
+        `Email: sandeepsokle12@gmail.com`,
       ];
       setContactUs(contactDetails);
 
@@ -42,22 +42,9 @@ export const Footer = () => {
       //   contacts,
       //   contactDetails,
       // });
-    }
-  }, [getCompleteData]);
+    // }
+  }, []);
 
-  useEffect(() => {
-    dispatch(getDataActionCreater());
-  }, [dispatch]);
-
-  const contacts = [
-    "Nordic-Giant Project",
-    "(Your Street)",
-    "(Your City)",
-    "(Your State)",
-    "(Your Zip/Postal Code)",
-    "555-555-5555",
-    "youremailhere@gmail.com",
-  ];
 
   const handleSubmit = () => {
     // console.log("Enter In handle Submit!!");
@@ -92,7 +79,7 @@ export const Footer = () => {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: "2rem",
+        // marginTop: "2rem",
         position: "relative",
         // paddingBottom: "0px",
 

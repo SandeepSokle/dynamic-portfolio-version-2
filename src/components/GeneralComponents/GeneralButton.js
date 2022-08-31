@@ -1,10 +1,10 @@
 import { Button } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useHistory, useNavigate } from "react-router-dom";
 import "./GeneralButton.css";
 export const GeneralButton = (props) => {
   const { title, btnColor, disabled, link } = props;
   // console.log(props);
-  const history = useHistory();
+  const history = useNavigate();
   const handleOpenLink = (name) => {
     window.open(link, "_blank", "noopener,noreferrer");
     // window.location.href = links[name];
@@ -32,10 +32,10 @@ export const GeneralButton = (props) => {
         e.preventDefault();
         if (link) handleOpenLink();
         if (title === "Projects") {
-          history.push("/projects");
+          history(`/projects`, { replace: false });
         }
         if (title === "Blogs") {
-          history.push("/blogs");
+          history(`/blogs`, { replace: false });
         }
       }}
     >

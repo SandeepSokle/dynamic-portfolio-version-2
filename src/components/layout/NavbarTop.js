@@ -156,9 +156,19 @@ const NavbarTop = (props) => {
             <Typography
               aria-owns={open1 ? "mouse-over-popover" : undefined}
               aria-haspopup="true"
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}
-              onClick={handleClick}
+              onMouseEnter={(e) => {
+                if (userData) handlePopoverOpen(e);
+              }}
+              onMouseLeave={(e) => {
+                if (userData) handlePopoverClose(e);
+              }}
+              onClick={(e) => {
+                if (userData) {
+                  handleClick(e);
+                } else {
+                  history(`../login`, { replace: false });
+                }
+              }}
               sx={{
                 m: "0rem 0.8rem",
                 cursor: "pointer",
