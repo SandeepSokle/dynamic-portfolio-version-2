@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, Link as Redirect } from "react-router-dom";
 import {
   createUserWithEmailPassword,
+  createUserWithLinkToEmail,
   loginWithEmailPassword,
   loginWithGoogle,
 } from "../../firebase/firebase_config";
@@ -68,20 +69,26 @@ export default function LoginPage() {
         // history.push("/admin");
       }
     } else {
-      if (data.get("password") === data.get("confirmPassword")) {
-        let userDetail = await createUserWithEmailPassword(
-          data.get("email"),
-          data.get("displayName"),
-          data.get("password"),
-          dispatch
-        );
-        if (userDetail) {
-          // console.log("user!!", userDetail);
-          setUser(userDetail);
-          dispatch(loginUserActionCreater(userDetail));
-          // history.push("/admin");
-        }
-      }
+      // if (data.get("password") === data.get("confirmPassword")) {
+      //   let userDetail = await createUserWithEmailPassword(
+      //     data.get("email"),
+      //     data.get("displayName"),
+      //     data.get("password"),
+      //     dispatch
+      //   );
+      //   if (userDetail) {
+      //     // console.log("user!!", userDetail);
+      //     setUser(userDetail);
+      //     dispatch(loginUserActionCreater(userDetail));
+      //     // history.push("/admin");
+      //   }
+      // }
+
+      await createUserWithLinkToEmail(
+        data.get("email"),
+        data.get("displayName"),
+        data.get("password")
+      );
     }
   };
 

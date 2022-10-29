@@ -9,6 +9,8 @@ import {
   signInWithPopup,
   signOut,
   updateProfile,
+  sendSignInLinkToEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 import { openSnackbar } from "../Redux/Snackbar/snackbarStore";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,7 +24,7 @@ const firebaseConfig = {
   storageBucket: "portfolio-v2-4e3e1.appspot.com",
   messagingSenderId: "719615702788",
   appId: "1:719615702788:web:c6241ac2ce57afdbccc251",
-  measurementId: "G-SFQV8S39CG"
+  measurementId: "G-SFQV8S39CG",
 };
 
 // Initialize Firebase
@@ -46,6 +48,8 @@ export const createUserWithEmailPassword = async (
       email,
       password
     );
+    // user = await sendEmailVerification()
+    console.log(`user`, user);
     user = userCredential.user;
     if (!user) {
       // const errorCode = error.code;
@@ -138,5 +142,46 @@ export const loginWithGoogle = async () => {
     // });
   } catch (err) {
     console.log(err.message);
+  }
+};
+
+export const createUserWithLinkToEmail = async (
+  email,
+  name,
+  password,
+  dispatch
+) => {
+  let user;
+  try {
+    const actionCodeSettings = {
+      // URL you want to redirect back to. The domain (www.example.com) for this
+      // URL must be in the authorized domains list in the Firebase Console.
+      url: "http://localhost:3000/",
+      // This must be true.
+      handleCodeInApp: true,
+      iOS: null,
+      android: null,
+      // dynamicLinkDomain: "example.page.link",
+    };
+
+    console.log(`email`, email);
+
+    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+    // user = userCredential.user;
+    // console.log(`user`, user);
+    // if (!user) {
+    //   // const errorCode = error.code;
+    //   const errorMessage = "user not found";
+    //   console.log(errorMessage);
+    // } else {
+    //   // await updateProfile(user, {
+    //   //   displayName: name,
+    //   // });
+    //   // dispatch(openSnackbar("User Successfully Signup", "success"));
+    //   return user;
+    // }
+  } catch (err) {
+    console.log(err.message);
+    // dispatch(openSnackbar(err.message, "error"));
   }
 };
